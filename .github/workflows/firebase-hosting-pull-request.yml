@@ -17,5 +17,5 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_EFFICIENT_ANIMATION_7A1A3 }}
-          projectId: efficient-animation-7a1a3
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MACRO_TALE }}
+          projectId: macro-tale
