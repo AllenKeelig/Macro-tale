@@ -1,4 +1,6 @@
 import React from "react";
+import { useState } from "react";
+import { demoCharacter } from "./CharacterSheet/charactersheet";
 
 interface HexCoord {
   q: number;
@@ -6,6 +8,7 @@ interface HexCoord {
 }
 
 const HEX_SIZE = 30; // radius of hex
+
 
 function axialToPixel(q: number, r: number) {
   const x = HEX_SIZE * (3 / 2) * q;
@@ -73,4 +76,75 @@ const HexGrid: React.FC = () => {
   );
 };
 
-export default HexGrid;
+export { HexGrid };
+
+
+export default function Tabletop() {
+  const [playerHP, setPlayerHP] = useState(demoCharacter.hp);
+  const [enemyHP, setEnemyHP] = useState(15);
+
+  const [log, setLog] = useState<string[]>([]);
+
+  function addLog(message: string) {
+    setLog((prev) => [...prev, message]);
+  }
+
+  function playerAttack() {
+    const damage = demoCharacter.attack;
+    setEnemyHP((hp) => {
+      const newHp = Math.max(0, hp - damage);
+      addLog(`${demoCharacter.name} hits enemy for ${damage} damage!`);
+      return newHp;
+    });
+  }
+
+  function enemyAttack() {
+    const damage = 3;
+    setPlayerHP((hp) => {
+      const newHp = Math.max(0, hp - damage);
+      addLog(`Enemy claws ${demoCharacter.name} for ${damage} damage!`);
+      return newHp;
+    });
+  }
+
+  return (
+    <div style={{ padding: "1rem" }}>
+      <h1>Tabletop Demo</h1>
+
+      <div style={{ display: "flex", gap: "2rem" }}>
+        <div>
+          <h2>Player</h2>
+          <p>Name: {demoCharacter.name}</p>
+          <p>HP: {playerHP}</p>
+          <button onClick={playerAttack} disabled={enemyHP <= 0 || playerHP <= 0}>
+            Attack Enemy
+          </button>
+        </div>
+
+        <div>
+          <h2>Enemy</h2>
+          <p>HP: {enemyHP}</p>
+          <button onClick={enemyAttack} disabled={enemyHP <= 0 || playerHP <= 0}>
+            Attack Player
+          </button>
+        </div>
+      </div>
+
+      <h3>Battle Log</h3>
+      <div
+        style={{
+          marginTop: "1rem",
+          padding: "1rem",
+          background: "#f0f0f0",
+          height: "200px",
+          overflow: "auto",
+          borderRadius: "8px",
+        }}
+      >
+        {log.map((entry, i) => (
+          <div key={i}>{entry}</div>
+        ))}
+      </div>
+    </div>
+  );
+}
