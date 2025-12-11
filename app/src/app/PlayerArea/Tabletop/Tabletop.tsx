@@ -69,6 +69,13 @@ const HexGrid: React.FC = () => {
         width={40}
         height={40}
       />
+      <image
+        href="/icons/enemy.png"  // replace with whatever you drop in public/icons
+        x={centerX - 50}
+        y={centerY - 50}
+        width={40}
+        height={40}
+      />
     </svg>
   );
 };
