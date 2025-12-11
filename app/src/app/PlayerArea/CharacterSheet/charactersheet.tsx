@@ -460,7 +460,6 @@ export interface CharacterSheet {
   name: string;
   hp: number;
   attack: number;
-  defense: number;
 }
 
 export interface CharacterPageProps {
@@ -472,7 +471,6 @@ export const demoCharacter: CharacterSheet = {
   name: "Player",
   hp: 20,
   attack: 4,
-  defense: 1,
 };
 
 const CharacterPage: React.FC<CharacterPageProps> = ({
@@ -487,7 +485,6 @@ const CharacterPage: React.FC<CharacterPageProps> = ({
       <p>Name: {character.name}</p>
       <p>HP: {character.hp}</p>
       <p>Attack: {character.attack}</p>
-      <p>Defense: {character.defense}</p>
 
       <button
         onClick={() =>
