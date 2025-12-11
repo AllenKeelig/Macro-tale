@@ -454,31 +454,32 @@
 
 // export default CharacterPage;
 
-import React, { useState } from "react";
+import React from "react";
 
-// 🔥 Simple demo sheet for the prototype
-interface CharacterSheet {
+export interface CharacterSheet {
   name: string;
   hp: number;
   attack: number;
   defense: number;
 }
 
-interface CharacterPageProps {
-  initialCharacter?: CharacterSheet;
+export interface CharacterPageProps {
+  initialCharacter: CharacterSheet;
+  updateCharacter: (c: CharacterSheet) => void;
 }
 
 export const demoCharacter: CharacterSheet = {
-  name: "Dork the Brave",
+  name: "Player",
   hp: 20,
   attack: 4,
   defense: 1,
 };
 
 const CharacterPage: React.FC<CharacterPageProps> = ({
-  initialCharacter = demoCharacter,
+  initialCharacter,
+  updateCharacter,
 }) => {
-  const [character] = useState<CharacterSheet>(initialCharacter);
+  const character = initialCharacter;
 
   return (
     <div>
@@ -487,6 +488,14 @@ const CharacterPage: React.FC<CharacterPageProps> = ({
       <p>HP: {character.hp}</p>
       <p>Attack: {character.attack}</p>
       <p>Defense: {character.defense}</p>
+
+      <button
+        onClick={() =>
+          updateCharacter({ ...character, hp: character.hp + 1 })
+        }
+      >
+        Heal +1 HP
+      </button>
     </div>
   );
 };
